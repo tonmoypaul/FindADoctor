@@ -94,3 +94,8 @@ D:\FindADoctor\FindADoctor\bin\Microsoft.AI.Web.xml
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.csprojResolveAssemblyReference.cache
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.dll
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.pdb
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.Initial.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.csproj.GenerateResource.Cache
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.SeedDbWithData.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedDocAssignmentAndMedical.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedCityAndSeedData.resources

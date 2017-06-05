@@ -1,0 +1,78 @@
+﻿@model FindADoctor.Models.Doctor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Doctor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Degree.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Degree.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specialty.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specialty.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorAssignments)
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Medical Centers</th>
+                </tr>
+                @foreach (var item in Model.DoctorAssignments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicalCenter.Name)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

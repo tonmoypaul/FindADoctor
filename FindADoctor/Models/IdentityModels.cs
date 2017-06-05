@@ -29,5 +29,12 @@ namespace FindADoctor.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Degree> Degrees { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<MedicalCenter> MedicalCenters { get; set; }
+        public DbSet<DoctorAssignment> DoctorAssignments { get; set; }
+
     }
 }
