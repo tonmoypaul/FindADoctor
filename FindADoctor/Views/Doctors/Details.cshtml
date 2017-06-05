@@ -6,71 +6,65 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="col-md-12">
     <h4>Doctor</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Degree.Name)
-        </dt>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Degree.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialty.Type)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Specialty.Type)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Degree.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Degree.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Specialty.Type)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Specialty.Type)
+            </dd>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorAssignments)
-        </dt>
-
-        <dd>
-            <table class="table">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Practicing Medical Center(s)</th>
+            </tr>
+            @foreach (var item in Model.DoctorAssignments)
+            {
                 <tr>
-                    <th>Medical Centers</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MedicalCenter.Name)
+                    </td>
                 </tr>
-                @foreach (var item in Model.DoctorAssignments)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MedicalCenter.Name)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </dd>
-
-    </dl>
+            }
+        </table>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
