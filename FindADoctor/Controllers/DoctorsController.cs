@@ -10,6 +10,7 @@ using FindADoctor.Models;
 
 namespace FindADoctor.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DoctorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -10,6 +10,7 @@ using FindADoctor.Models;
 
 namespace FindADoctor.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MedicalCentersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -56,6 +57,25 @@ namespace FindADoctor.Controllers
             }
 
             return View(medicalCenter);
+        }
+
+        public ActionResult AssignDoctor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            MedicalCenter medicalCenter = db.MedicalCenters.Find(id);
+
+            if (medicalCenter == null)
+            {
+                return HttpNotFound();
+            }
+
+            var doctors = db.Doctors.Include(d => d.DoctorAssignments);
+            
+            return View(doctors.ToList());
         }
 
         // GET: MedicalCenters/Edit/5

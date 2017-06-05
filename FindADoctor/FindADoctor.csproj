@@ -212,6 +212,10 @@
     <Compile Include="Migrations\201706050726436_AddedCityAndSeedData.Designer.cs">
       <DependentUpon>201706050726436_AddedCityAndSeedData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706051244150_AddingAdminUserAndRoles.cs" />
+    <Compile Include="Migrations\201706051244150_AddingAdminUserAndRoles.Designer.cs">
+      <DependentUpon>201706051244150_AddingAdminUserAndRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Degree.cs" />
@@ -223,7 +227,6 @@
     <Compile Include="Models\Specialty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\DoctorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -333,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706050726436_AddedCityAndSeedData.resx">
       <DependentUpon>201706050726436_AddedCityAndSeedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051244150_AddingAdminUserAndRoles.resx">
+      <DependentUpon>201706051244150_AddingAdminUserAndRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

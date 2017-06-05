@@ -99,3 +99,4 @@ D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.csproj.GenerateResource.Cache
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.SeedDbWithData.resources
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedDocAssignmentAndMedical.resources
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedCityAndSeedData.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddingAdminUserAndRoles.resources

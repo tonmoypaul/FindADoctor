@@ -1,6 +1,8 @@
 namespace FindADoctor.Migrations
 {
     using FindADoctor.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -112,6 +114,53 @@ namespace FindADoctor.Migrations
 
             assignments.ForEach(a => context.DoctorAssignments.AddOrUpdate(a));
             context.SaveChanges();
+
+
+            InitializeAdminUserAndRoles(context);
+        }
+
+        private void InitializeAdminUserAndRoles(ApplicationDbContext context)
+        {
+            // creating app admin role
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
+
+                manager.Create(role);
+            }
+
+            // creating a app admin user
+            if (!context.Users.Any(u => u.UserName == "findadoc@outlook.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "findadoc@outlook.com", Email = "findadoc@outlook.com" };
+
+                manager.Create(user, "P@ssw0rd2017#");
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            // creating doctor role
+            if (!context.Roles.Any(r => r.Name == "Doctor"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Doctor" };
+
+                manager.Create(role);
+            }
+
+            // creating patient role
+            if (!context.Roles.Any(r => r.Name == "Patient"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Patient" };
+
+                manager.Create(role);
+            }
         }
     }
 }
