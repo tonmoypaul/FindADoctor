@@ -86,9 +86,13 @@
             
         <table class="table table-striped table-bordered">
             <tr>
-                <th>Available Doctor(s)</th>
+                <th colspan="4">Current Available Doctor(s)</th>
+            </tr>
+            <tr>
+                <th>Full Name</th>
                 <th>Specialty</th>
                 <th>Degree</th>
+                <th></th>
             </tr>
             @foreach (var item in Model.DoctorAssignments)
             {
@@ -101,6 +105,38 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Doctor.Degree.Abbreviation)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Unlink", "UnlinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.DoctorId })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th colspan="4">Other Doctor(s) Ready To Hire</th>
+            </tr>
+            <tr>
+                <th>Full Name</th>
+                <th>Specialty</th>
+                <th>Degree</th>
+                <th></th>
+            </tr>
+            @foreach (var item in ViewBag.OtherDoctors)
+            {
+                <tr>
+                    <td>
+                        @item.FirstName @item.LastName
+                    </td>
+                    <td>
+                        @item.Specialty.Type
+                    </td>
+                    <td>
+                        @item.Degree.Abbreviation
+                    </td>
+                    <td>
+                        @Html.ActionLink("Link", "LinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.Id })
                     </td>
                 </tr>
             }

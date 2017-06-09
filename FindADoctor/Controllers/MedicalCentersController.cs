@@ -33,6 +33,20 @@ namespace FindADoctor.Controllers
             {
                 return HttpNotFound();
             }
+
+            var doctors = db.Doctors.ToList();
+            var doctorsAssigned = db.DoctorAssignments.ToList();
+
+            IEnumerable<Doctor> otherDoctors = from a in doctors
+                                               where
+                                               !(from b in doctorsAssigned
+                                               where b.MedicalCenterId == id
+                                               select b.DoctorId).Contains(a.Id)
+                                               select a;
+
+            ViewBag.OtherDoctors = otherDoctors;
+
+            
             return View(medicalCenter);
         }
 
@@ -59,23 +73,72 @@ namespace FindADoctor.Controllers
             return View(medicalCenter);
         }
 
-        public ActionResult AssignDoctor(int? id)
+        // Method to Unassign doctor from Medical center
+        public ActionResult UnlinkDoctor(int? doctorId, int? medicalId)
         {
-            if (id == null)
+            // first validating input parameter existence
+            if (doctorId == null || medicalId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            MedicalCenter medicalCenter = db.MedicalCenters.Find(id);
+            // getting the row from the assignment table
+            var doctorInMedicalCenter = db.DoctorAssignments
+                .First(row => row.DoctorId == doctorId && row.MedicalCenterId == medicalId);
 
-            if (medicalCenter == null)
+            // returning bad request if there is no assignment in the table
+            if (doctorInMedicalCenter == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            // removing assignment from database
+            db.DoctorAssignments.Remove(doctorInMedicalCenter);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { @id = medicalId });
+        }
+
+        // Method to Assign doctor to Medical center
+        public ActionResult LinkDoctor(int? doctorId, int? medicalId)
+        {
+            // first validating input parameter existence
+            if (doctorId == null || medicalId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var doctors = db.Doctors.Include(d => d.DoctorAssignments);
+            // second checking doc & med existence according to input parameters
+            var doctorExists = db.Doctors.Find(doctorId);
+            var MedicalCenterExists = db.MedicalCenters.Find(medicalId);
+
+            // returning bad request if there is no such doc or medical center exists
+            if (doctorExists == null || MedicalCenterExists == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // getting the assignment table row
+            var doctorAlreadyAssigned = db.DoctorAssignments.FirstOrDefault(row => row.DoctorId == doctorId && row.MedicalCenterId == medicalId);
             
-            return View(doctors.ToList());
+            // returning bad request if there is no assignment
+            if (doctorAlreadyAssigned != null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            // creating assignment model
+            var doctorAssignment = new DoctorAssignment
+            {
+                DoctorId = (int)doctorId,
+                MedicalCenterId = (int)medicalId
+            };
+
+            // adding table record with assignment information
+            db.DoctorAssignments.Add(doctorAssignment);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { @id = medicalId });
         }
 
         // GET: MedicalCenters/Edit/5
