@@ -32,3 +32,12 @@ textarea {
     height: 400px;
     width: 100%;
 }
+
+.progress {
+    height: 46px;
+}
+
+.progress .progress-bar {
+    font-size: 15px;
+    line-height: 46px;
+}

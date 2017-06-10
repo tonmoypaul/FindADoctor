@@ -100,3 +100,7 @@ D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.SeedDbWithData.resou
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedDocAssignmentAndMedical.resources
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedCityAndSeedData.resources
 D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddingAdminUserAndRoles.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedMorePropertiestoIdentityUser.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddingMigrationToFixIssue1.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddedSpecialtyArea4Specialists.resources
+D:\FindADoctor\FindADoctor\obj\Debug\FindADoctor.Migrations.AddingAppointment.resources

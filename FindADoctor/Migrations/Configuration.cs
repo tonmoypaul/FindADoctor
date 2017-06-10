@@ -31,6 +31,31 @@ namespace FindADoctor.Migrations
             //    );
             //
 
+            var genders = new List<Gender>
+            {
+                new Gender {Id = 1, Name = "Male"},
+                new Gender {Id = 2, Name = "Female"},
+                new Gender {Id = 3, Name = "Other"}
+            };
+
+            genders.ForEach(g => context.Genders.AddOrUpdate(g));
+            context.SaveChanges();
+
+            var bloodGroups = new List<BloodGroup>
+            {
+                new BloodGroup {Id = 1, Type = "A+"},
+                new BloodGroup {Id = 2, Type = "A-"},
+                new BloodGroup {Id = 3, Type = "B+"},
+                new BloodGroup {Id = 4, Type = "B-"},
+                new BloodGroup {Id = 5, Type = "AB+"},
+                new BloodGroup {Id = 6, Type = "AB-"},
+                new BloodGroup {Id = 7, Type = "O+"},
+                new BloodGroup {Id = 8, Type = "O-"}
+            };
+
+            bloodGroups.ForEach(b => context.BloodGroups.AddOrUpdate(b));
+            context.SaveChanges();
+
             var degrees = new List<Degree>
             {
                 new Degree { Id = 1, Name = "Bachelor of Medicine and Bachelor of Surgery", Abbreviation = "MBBS" },
@@ -55,29 +80,45 @@ namespace FindADoctor.Migrations
 
             var specialties = new List<Specialty>
             {
-                new Specialty { Id = 1, Type = "General Practitioner" },
-                new Specialty { Id = 2, Type = "Anesthesiologist" },
-                new Specialty { Id = 3, Type = "Cardiologist" },
-                new Specialty { Id = 4, Type = "Dermatologist" },
-                new Specialty { Id = 5, Type = "Diabetologist" },
-                new Specialty { Id = 6, Type = "Endocrinologist" },
-                new Specialty { Id = 7, Type = "Gynaecologist" },
-                new Specialty { Id = 8, Type = "Hematologist" },
-                new Specialty { Id = 9, Type = "Immunologist" },
-                new Specialty { Id = 10, Type = "Leprologist" },
-                new Specialty { Id = 11, Type = "Neurologist" },
-                new Specialty { Id = 12, Type = "Neurosurgeon" },
-                new Specialty { Id = 13, Type = "Obstetrician" },
-                new Specialty { Id = 14, Type = "Pathologist" },
-                new Specialty { Id = 15, Type = "Psychiatrist" },
-                new Specialty { Id = 16, Type = "Radiologist" },
-                new Specialty { Id = 17, Type = "Rheumatologist" },
-                new Specialty { Id = 18, Type = "Surgeon" },
-                new Specialty { Id = 19, Type = "Urologist" },
-                new Specialty { Id = 20, Type = "Venereologist" }
+                new Specialty { Id = 1, Type = "General Practitioner", SpecialtyArea = "I am looking for a Generation Doctor!" },
+                new Specialty { Id = 2, Type = "Anesthesiologist", SpecialtyArea = "Need to consult about the operation!" },
+                new Specialty { Id = 3, Type = "Cardiologist", SpecialtyArea = "I'm in love. Need a Cardiologist!" },
+                new Specialty { Id = 4, Type = "Dermatologist", SpecialtyArea = "I am looking for a Generation Doctor!" },
+                new Specialty { Id = 5, Type = "Diabetologist", SpecialtyArea = "I want a nice look like a white skinned American!" },
+                new Specialty { Id = 6, Type = "Endocrinologist", SpecialtyArea = "Need Hormone related help! Want to look like a dinosaur" },
+                new Specialty { Id = 7, Type = "Gynaecologist", SpecialtyArea = "Looking for the doctor who loves his working days" },
+                new Specialty { Id = 8, Type = "Hematologist", SpecialtyArea = "Take care of my blood!" },
+                new Specialty { Id = 9, Type = "Immunologist", SpecialtyArea = "Looking for an Immunologist" },
+                new Specialty { Id = 10, Type = "Leprologist", SpecialtyArea = "Looking for a Leprologist" },
+                new Specialty { Id = 11, Type = "Neurologist", SpecialtyArea = "Looking for a Neurologist" },
+                new Specialty { Id = 12, Type = "Neurosurgeon", SpecialtyArea = "Looking for a Neurosurgeon" },
+                new Specialty { Id = 13, Type = "Obstetrician", SpecialtyArea = "Looking for an Obstetrician" },
+                new Specialty { Id = 14, Type = "Pathologist", SpecialtyArea = "Looking for a Pathologist" },
+                new Specialty { Id = 15, Type = "Psychiatrist", SpecialtyArea = "Looking for a Psychiatrist" },
+                new Specialty { Id = 16, Type = "Radiologist", SpecialtyArea = "Looking for a Radiologist" },
+                new Specialty { Id = 17, Type = "Rheumatologist", SpecialtyArea = "Looking for a Rheumatologist" },
+                new Specialty { Id = 18, Type = "Surgeon", SpecialtyArea = "Looking for a Surgeon" },
+                new Specialty { Id = 19, Type = "Urologist", SpecialtyArea = "Looking for an Urologist" },
+                new Specialty { Id = 20, Type = "Venereologist", SpecialtyArea = "Looking for a Venereologist" }
             };
 
             specialties.ForEach(s => context.Specialties.AddOrUpdate(s));
+            context.SaveChanges();
+
+            // seeding appointment periods
+            var appointmentSchedule = new List<AppointmentSchedule>
+            {
+                new AppointmentSchedule { Id = 1, TimePeriod = "08:00am - 09:00am" },
+                new AppointmentSchedule { Id = 2, TimePeriod = "09:00am - 10:00am" },
+                new AppointmentSchedule { Id = 3, TimePeriod = "10:00am - 11:00pm" },
+                new AppointmentSchedule { Id = 4, TimePeriod = "11:00am - 12:00pm" },
+                new AppointmentSchedule { Id = 5, TimePeriod = "01:00pm - 02:00pm" },
+                new AppointmentSchedule { Id = 6, TimePeriod = "02:00pm - 03:00pm" },
+                new AppointmentSchedule { Id = 7, TimePeriod = "03:00pm - 04:00pm" },
+                new AppointmentSchedule { Id = 8, TimePeriod = "04:00pm - 05:00pm" }
+            };
+
+            appointmentSchedule.ForEach(a => context.AppointmentSchedules.AddOrUpdate(a));
             context.SaveChanges();
 
             var doctors = new List<Doctor>
@@ -136,13 +177,13 @@ namespace FindADoctor.Migrations
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "findadoc@outlook.com", Email = "findadoc@outlook.com" };
+                var user = new ApplicationUser { UserName = "findadoc@outlook.com", Email = "findadoc@outlook.com", FirstName = "App", LastName = "Admin" };
 
                 manager.Create(user, "P@ssw0rd2017#");
                 manager.AddToRole(user.Id, "Admin");
             }
 
-            // creating doctor role
+            // creating doctor role - for future app extension
             if (!context.Roles.Any(r => r.Name == "Doctor"))
             {
                 var store = new RoleStore<IdentityRole>(context);

@@ -79,6 +79,36 @@ namespace FindADoctor.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Phone")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Gender")]
+        public int GenderId { get; set; }
+
+
+        public string Address { get; set; }
+        public string Suburb { get; set; }
+        public string City { get; set; }
+
+        [Display(Name = "Post Code")]
+        public string PostCode { get; set; }
+
+        [Display(Name = "Blood Group")]
+        public int? BloodGroupId { get; set; }
+
+        public IEnumerable<Gender> Genders { get; set; }
+        public IEnumerable<BloodGroup> BloodGroups { get; set; }
     }
 
     public class ResetPasswordViewModel

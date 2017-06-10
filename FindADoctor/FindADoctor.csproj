@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,15 +217,36 @@
     <Compile Include="Migrations\201706051244150_AddingAdminUserAndRoles.Designer.cs">
       <DependentUpon>201706051244150_AddingAdminUserAndRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706091413509_AddedMorePropertiestoIdentityUser.cs" />
+    <Compile Include="Migrations\201706091413509_AddedMorePropertiestoIdentityUser.Designer.cs">
+      <DependentUpon>201706091413509_AddedMorePropertiestoIdentityUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706091512308_AddingMigrationToFixIssue1.cs" />
+    <Compile Include="Migrations\201706091512308_AddingMigrationToFixIssue1.Designer.cs">
+      <DependentUpon>201706091512308_AddingMigrationToFixIssue1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706100843017_AddedSpecialtyArea4Specialists.cs" />
+    <Compile Include="Migrations\201706100843017_AddedSpecialtyArea4Specialists.Designer.cs">
+      <DependentUpon>201706100843017_AddedSpecialtyArea4Specialists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706100952322_AddingAppointment.cs" />
+    <Compile Include="Migrations\201706100952322_AddingAppointment.Designer.cs">
+      <DependentUpon>201706100952322_AddingAppointment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\AppointmentSchedule.cs" />
+    <Compile Include="Models\BloodGroup.cs" />
     <Compile Include="Models\Degree.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\DoctorAssignment.cs" />
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MedicalCenter.cs" />
     <Compile Include="Models\Specialty.cs" />
+    <Compile Include="Models\StepOneViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -305,9 +327,12 @@
     <Content Include="Views\MedicalCenters\Details.cshtml" />
     <Content Include="Views\MedicalCenters\Edit.cshtml" />
     <Content Include="Views\MedicalCenters\Index.cshtml" />
+    <Content Include="Views\Appointments\StepOne.cshtml" />
+    <Content Include="Views\Appointments\StepTwo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Appointment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -339,6 +364,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706051244150_AddingAdminUserAndRoles.resx">
       <DependentUpon>201706051244150_AddingAdminUserAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091413509_AddedMorePropertiestoIdentityUser.resx">
+      <DependentUpon>201706091413509_AddedMorePropertiestoIdentityUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706091512308_AddingMigrationToFixIssue1.resx">
+      <DependentUpon>201706091512308_AddingMigrationToFixIssue1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706100843017_AddedSpecialtyArea4Specialists.resx">
+      <DependentUpon>201706100843017_AddedSpecialtyArea4Specialists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706100952322_AddingAppointment.resx">
+      <DependentUpon>201706100952322_AddingAppointment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

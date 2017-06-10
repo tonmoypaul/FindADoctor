@@ -18,6 +18,8 @@ namespace FindADoctor.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public AccountController()
         {
         }
@@ -139,7 +141,16 @@ namespace FindADoctor.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var genders = db.Genders.ToList();
+            var bloodGroups = db.BloodGroups.ToList();
+
+            var viewModel = new RegisterViewModel
+            {
+                Genders = genders,
+                BloodGroups = bloodGroups
+            };
+
+            return View(viewModel);
         }
 
         //
@@ -151,8 +162,16 @@ namespace FindADoctor.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber, GenderId = model.GenderId, Address = model.Address, Suburb = model.Suburb,
+                    City = model.City, PostCode = model.PostCode, BloodGroupId = model.BloodGroupId
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.Id, "Patient"); // All default user will be patient
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -165,6 +184,7 @@ namespace FindADoctor.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
             }
 
@@ -418,6 +438,8 @@ namespace FindADoctor.Controllers
                     _signInManager.Dispose();
                     _signInManager = null;
                 }
+
+                db.Dispose();
             }
 
             base.Dispose(disposing);

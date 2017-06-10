@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FindADoctor.Models;
+using System.Data.Entity;
 
 namespace FindADoctor.Controllers
 {
@@ -15,6 +16,8 @@ namespace FindADoctor.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -64,14 +67,28 @@ namespace FindADoctor.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var genders = db.Genders.ToList();
+            var bloodGroups = db.BloodGroups.ToList();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+
+                FirstName = UserManager.FindById(userId).FirstName,
+                LastName = UserManager.FindById(userId).LastName,
+                Address = UserManager.FindById(userId).Address,
+                Suburb = UserManager.FindById(userId).Suburb,
+                City = UserManager.FindById(userId).City,
+                PostCode = UserManager.FindById(userId).PostCode,
+                Gender = genders.FirstOrDefault(g => g.Id == UserManager.FindById(userId).GenderId),
+                BloodGroup = bloodGroups.FirstOrDefault(b => b.Id == UserManager.FindById(userId).BloodGroupId)
             };
+
             return View(model);
         }
 
@@ -328,6 +345,11 @@ namespace FindADoctor.Controllers
             {
                 _userManager.Dispose();
                 _userManager = null;
+            }
+
+            if (disposing)
+            {
+                db.Dispose();
             }
 
             base.Dispose(disposing);

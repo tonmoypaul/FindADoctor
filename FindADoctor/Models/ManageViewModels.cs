@@ -12,6 +12,30 @@ namespace FindADoctor.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
+        public string Address { get; set; }
+        public string Suburb { get; set; }
+        public string City { get; set; }
+        public string PostCode { get; set; }
+        public int? GenderId { get; set; }
+        public int? BloodGroupId { get; set; }
+
+        public Gender Gender { get; set; }
+        public BloodGroup BloodGroup { get; set; }
+
+        public IEnumerable<Gender> Genders { get; set; }
+        public IEnumerable<BloodGroup> BloodGroups { get; set; }
     }
 
     public class ManageLoginsViewModel

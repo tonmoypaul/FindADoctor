@@ -10,18 +10,20 @@ using FindADoctor.Models;
 
 namespace FindADoctor.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class MedicalCentersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MedicalCenters
+        [Authorize(Roles = "Admin, Patient")]
         public ActionResult Index()
         {
             return View(db.MedicalCenters.ToList());
         }
 
         // GET: MedicalCenters/Details/5
+        [Authorize(Roles = "Admin, Patient")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,6 +53,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: MedicalCenters/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -61,6 +64,7 @@ namespace FindADoctor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Name,Address,Suburb,PostCode,City,Phone,Website,Latitute,Longitude")] MedicalCenter medicalCenter)
         {
             if (ModelState.IsValid)
@@ -74,6 +78,7 @@ namespace FindADoctor.Controllers
         }
 
         // Method to Unassign doctor from Medical center
+        [Authorize(Roles = "Admin")]
         public ActionResult UnlinkDoctor(int? doctorId, int? medicalId)
         {
             // first validating input parameter existence
@@ -100,6 +105,7 @@ namespace FindADoctor.Controllers
         }
 
         // Method to Assign doctor to Medical center
+        [Authorize(Roles = "Admin")]
         public ActionResult LinkDoctor(int? doctorId, int? medicalId)
         {
             // first validating input parameter existence
@@ -142,6 +148,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: MedicalCenters/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -161,6 +168,7 @@ namespace FindADoctor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Name,Address,Suburb,PostCode,City,Phone,Website,Latitute,Longitude")] MedicalCenter medicalCenter)
         {
             if (ModelState.IsValid)
@@ -173,6 +181,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: MedicalCenters/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -190,6 +199,7 @@ namespace FindADoctor.Controllers
         // POST: MedicalCenters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             MedicalCenter medicalCenter = db.MedicalCenters.Find(id);

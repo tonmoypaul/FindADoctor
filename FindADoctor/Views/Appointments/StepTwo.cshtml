@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FindADoctor.Models.MedicalCenter>
+
+@{
+    ViewBag.Title = "Appointment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress progress-striped active">
+            <div class="progress-bar" style="width: 45%">Choose Your Medical Center</div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("StepThree", "Appointments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <table class="table table-hover table-striped">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.RadioButtonFor(modelItem => item.Id, new { @Id = item.Id })</td>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td><address>@Html.DisplayFor(modelItem => item.Address)<br/>@Html.DisplayFor(modelItem => item.Suburb)<br/>@Html.DisplayFor(modelItem => item.City)<br />@Html.DisplayFor(modelItem => item.PostCode)</address>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                <td><span class="distance"></span></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-3">
+                @Html.ActionLink("<< Go Back", "StepOne", null, new { @class = "btn btn-default" })
+                <button class="btn btn-default">Check Medical Center Distance</button>
+                <input type="submit" value="Check Available Doctors >>" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+    

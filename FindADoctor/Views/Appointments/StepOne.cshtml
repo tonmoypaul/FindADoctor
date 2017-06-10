@@ -1,0 +1,48 @@
+﻿@model FindADoctor.Models.StepOneViewModel
+
+@{
+    ViewBag.Title = "Appointment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress progress-striped active">
+            <div class="progress-bar" style="width: 30%">Choose The Care You Need</div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("StepTwo", "Appointments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-10">
+            <table class="table table-hover table-striped">
+                @foreach (var item in Model.Specialties)
+                {
+                    <tr>
+                        <td>@Html.RadioButtonFor(r => r.SelectedSpecialty, item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SpecialtyArea)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-5">
+                <input type="submit" value="Check Available Medical Centers >>" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+    

@@ -84,71 +84,105 @@
             </dd>
         </dl>
             
-        <table class="table table-striped table-bordered">
-            <tr>
-                <th colspan="4">Current Available Doctor(s)</th>
-            </tr>
-            <tr>
-                <th>Full Name</th>
-                <th>Specialty</th>
-                <th>Degree</th>
-                <th></th>
-            </tr>
-            @foreach (var item in Model.DoctorAssignments)
-            {
+        @if (User.IsInRole("Admin"))
+        {
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName) 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Doctor.Specialty.Type)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Doctor.Degree.Abbreviation)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Unlink", "UnlinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.DoctorId })
-                    </td>
+                    <th colspan="4">Current Available Doctor(s)</th>
                 </tr>
-            }
-        </table>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Degree</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.DoctorAssignments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName) 
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Specialty.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Degree.Abbreviation)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Unlink", "UnlinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.DoctorId })
+                        </td>
+                    </tr>
+                }
+            </table>
 
-        <table class="table table-striped table-bordered">
-            <tr>
-                <th colspan="4">Other Doctor(s) Ready To Hire</th>
-            </tr>
-            <tr>
-                <th>Full Name</th>
-                <th>Specialty</th>
-                <th>Degree</th>
-                <th></th>
-            </tr>
-            @foreach (var item in ViewBag.OtherDoctors)
-            {
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <td>
-                        @item.FirstName @item.LastName
-                    </td>
-                    <td>
-                        @item.Specialty.Type
-                    </td>
-                    <td>
-                        @item.Degree.Abbreviation
-                    </td>
-                    <td>
-                        @Html.ActionLink("Link", "LinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.Id })
-                    </td>
+                    <th colspan="4">Other Doctor(s) Ready To Hire</th>
                 </tr>
-            }
-        </table>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Degree</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in ViewBag.OtherDoctors)
+                {
+                    <tr>
+                        <td>
+                            @item.FirstName @item.LastName
+                        </td>
+                        <td>
+                            @item.Specialty.Type
+                        </td>
+                        <td>
+                            @item.Degree.Abbreviation
+                        </td>
+                        <td>
+                            @Html.ActionLink("Link", "LinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        @if (User.IsInRole("Patient"))
+        {
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th colspan="3">Current Available Doctor(s)</th>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Degree</th>
+                </tr>
+                @foreach (var item in Model.DoctorAssignments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Specialty.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Degree.Abbreviation)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
     </div>
     <div class="col-md-6">
         <div id="map"></div>
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm" })
+        @Html.Raw(" ")
+    }
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-sm" })
 </p>
 
 

@@ -10,12 +10,13 @@ using FindADoctor.Models;
 
 namespace FindADoctor.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DoctorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Doctors
+        [Authorize(Roles = "Admin, Patient")]
         public ActionResult Index()
         {
             var doctors = db.Doctors.Include(d => d.Degree).Include(d => d.Specialty);
@@ -23,6 +24,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: Doctors/Details/5
+        [Authorize(Roles = "Admin, Patient")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: Doctors/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Name");
@@ -50,6 +53,7 @@ namespace FindADoctor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Phone,SpecialtyId,DegreeId")] Doctor doctor)
         {
             if (ModelState.IsValid)
@@ -65,6 +69,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: Doctors/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace FindADoctor.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Phone,SpecialtyId,DegreeId")] Doctor doctor)
         {
             if (ModelState.IsValid)
@@ -100,6 +106,7 @@ namespace FindADoctor.Controllers
         }
 
         // GET: Doctors/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,6 +124,7 @@ namespace FindADoctor.Controllers
         // POST: Doctors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Doctor doctor = db.Doctors.Find(id);
