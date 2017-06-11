@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FindADoctor.Models.MedicalCenter>
+﻿@model FindADoctor.Models.StepTwoViewModel
 
 @{
     ViewBag.Title = "Appointment";
@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="progress progress-striped active">
-            <div class="progress-bar" style="width: 45%">Choose Your Medical Center</div>
+            <div class="progress-bar" style="width: 45%">Choose Suitable Medical Center</div>
         </div>
     </div>
 </div>
@@ -25,24 +25,31 @@
         <div class="form-group">
                 <div class="col-md-offset-1 col-md-10">
                     <table class="table table-hover table-striped">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.MedicalCenters)
                         {
                             <tr>
-                                <td>@Html.RadioButtonFor(modelItem => item.Id, new { @Id = item.Id })</td>
+                                <td>@Html.RadioButtonFor(r => r.SelectedMedicalCenter, item.Id)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td><address>@Html.DisplayFor(modelItem => item.Address)<br/>@Html.DisplayFor(modelItem => item.Suburb)<br/>@Html.DisplayFor(modelItem => item.City)<br />@Html.DisplayFor(modelItem => item.PostCode)</address>
+                                <td>
+                                    <address>@Html.DisplayFor(modelItem => item.Address)<br />@Html.DisplayFor(modelItem => item.Suburb)<br />@Html.DisplayFor(modelItem => item.City)<br />@Html.DisplayFor(modelItem => item.PostCode)</address>
                                 </td>
                                 <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                                <td><button type="button" class="btn btn-default getDistance" id="@Html.DisplayFor(modelItem => item.Id)" onclick="getDistance(@Html.DisplayFor(modelItem => item.Id), @Html.DisplayFor(modelItem => item.Latitute), @Html.DisplayFor(modelItem => item.Longitude))">Check Distance</button></td>
-                                <td><span id="@Html.DisplayFor(modelItem => item.Id)"></span></td>
+                                @*<td><button type="button" class="btn btn-default getDistance" id="@Html.DisplayFor(modelItem => item.Id)" onclick="getDistance(@Html.DisplayFor(modelItem => item.Id), @Html.DisplayFor(modelItem => item.Latitute), @Html.DisplayFor(modelItem => item.Longitude))">Check Distance</button></td>
+                                    <td><span id="@Html.DisplayFor(modelItem => item.Id)"></span></td>*@
                             </tr>
+
+                            if (item == null)
+                            {
+                                <tr><td>Sorry! There is no medical center found where you can go for the help you need.</td></tr>
+                            }
                         }
                     </table>
                 </div>
             </div>
         
         <div class="form-group">
-            <div class="col-md-offset-3">
+            <div class="col-md-offset-4">
+                @Html.HiddenFor(x => x.SelectedSpecialty, new { @SelectedSpecialty = Model.SelectedSpecialty })
                 @Html.ActionLink("<< Go Back", "StepOne", null, new { @class = "btn btn-default" })
                 <input type="submit" value="Check Available Doctors >>" class="btn btn-default" />
             </div>
@@ -66,8 +73,8 @@
                     var orgLat = position.coords.latitude;
                     var orgLong = position.coords.longitude;
 
-                    var origin = new google.maps.LatLng(76.00, 52.00);
-                    var destination = new google.maps.LatLng(21.00, 25.44);
+                    var origin = "40 Mt Wellington Highway"; //new google.maps.LatLng(76.00, 52.00);
+                    var destination = "128 Mt Wellington Highway"; //new google.maps.LatLng(21.00, 25.44);
 
                     var service = new google.maps.DistanceMatrixService();
                     service.getDistanceMatrix(
@@ -102,6 +109,9 @@
                         var duration = element.duration.text;
                         var from = origins[i];
                         var to = destinations[j];
+
+                        var y = document.getElementById("x");
+                        y.value = distance;
                     }
                 }
 

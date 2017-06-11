@@ -64,7 +64,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Website)
+                <a href="@Html.DisplayFor(model => model.Website)">@Html.DisplayFor(model => model.Website)</a>
             </dd>
 
             <dt>
@@ -191,7 +191,7 @@
         function initMap() {
             var medical_center = { lat: @Html.DisplayFor(model => model.Latitute) , lng: @Html.DisplayFor(model => model.Longitude) };
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
+                zoom: 14,
                 center: medical_center
             });
             var marker = new google.maps.Marker({

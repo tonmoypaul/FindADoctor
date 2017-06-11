@@ -27,7 +27,7 @@
                     
                     @if (User.IsInRole("Admin") || User.IsInRole("Patient"))
                     {
-                        <li>@Html.ActionLink("New Appointment", "StepOne", "Appointments")</li>
+                        <li>@Html.ActionLink("Appointments", "Index", "Appointments")</li>
                         <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
                         <li>@Html.ActionLink("Medical Centers", "Index", "MedicalCenters")</li>
                     }

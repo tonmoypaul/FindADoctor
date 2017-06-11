@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FindADoctor.Models.Appointment>
+
+@{
+    ViewBag.Title = "All Appointments";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @if (User.IsInRole("Patient"))
+    {
+        @Html.ActionLink("Create New Appointment", "StepOne", null, new { @class = "btn btn-default" })
+    }
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            Medical Center
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalCenter.Address)
+        </th>
+        <th>
+            Doctor's Full Name
+        </th>
+        <th>
+            Appointment Schedule
+        </th>
+        <th>
+            Patient's Email
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicalCenter.Name)
+            </td>
+            <td>
+                <address>@Html.DisplayFor(modelItem => item.MedicalCenter.Address)<br />@Html.DisplayFor(modelItem => item.MedicalCenter.Suburb)<br />@Html.DisplayFor(modelItem => item.MedicalCenter.City)<br />@Html.DisplayFor(modelItem => item.MedicalCenter.PostCode)</address>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                @Html.Raw(" ")
+                @Html.DisplayFor(modelItem => item.Doctor.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentSchedule.TimePeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientUserName)
+            </td>
+        </tr>
+    }
+
+</table>
