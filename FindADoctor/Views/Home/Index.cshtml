@@ -3,29 +3,28 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Find A Doctor</h1>
+    <p class="lead">Find A Doctor Web Application allows you to find doctors in your suitable medical center and make an appointment with them</p>
+    <p>Just Register yourself and go ahead with our online services</p>
+    <p><a href="@Url.Action("StepOne", "Appointments", null)" class="btn btn-primary btn-lg">Create Appointment &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Using Find A Doctor Application is very easy. Before, you can make an appointment, you just need to register a patient account with us.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a href="@Url.Action("Register", "Account", null)" class="btn btn-default">Register Yourself &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Medical Center Details</h2>
+        <p>Once you are a registered user, you can access Find A Doc web application to check available medical center details.</p>
+        <p><a href="@Url.Action("Index", "MedicalCenters", null)" class="btn btn-default">See Medical Centers &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Doctor Details</h2>
+        <p>As an user of Find A Doctor web application, you also can see doctor details and where you can find them</p>
+        <p><a href="@Url.Action("Index", "Doctors", null)" class="btn btn-default">See Doctors &raquo;</a></p>
     </div>
 </div>

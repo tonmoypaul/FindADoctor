@@ -99,3 +99,8 @@ D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddedCityAndSeedDa
 D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.csproj.GenerateResource.Cache
 D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.dll
 D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.pdb
+D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddingAdminUserAndRoles.resources
+D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddedMorePropertiestoIdentityUser.resources
+D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddingMigrationToFixIssue1.resources
+D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddedSpecialtyArea4Specialists.resources
+D:\FindADoctor\FindADoctor\obj\Release\FindADoctor.Migrations.AddingAppointment.resources

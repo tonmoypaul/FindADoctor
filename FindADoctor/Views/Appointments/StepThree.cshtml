@@ -1,0 +1,53 @@
+﻿@model FindADoctor.Models.StepThreeViewModel
+
+@{
+    ViewBag.Title = "Appointment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress progress-striped active">
+            <div class="progress-bar" style="width: 65%">Choose The Doctor Now</div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("StepFour", "Appointments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <table class="table table-hover table-striped">
+                        @foreach (var item in Model.Doctors)
+                        {
+                            <tr>
+                                <td>@Html.RadioButtonFor(r => r.SelectedDoctor, item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                @Html.HiddenFor(x => x.SelectedMedicalCenter, new { @SelectedMedicalCenter = Model.SelectedMedicalCenter })
+                @Html.ActionLink("<< Start Again", "StepOne", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Check Available Time >>" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+   
+}
+
+    

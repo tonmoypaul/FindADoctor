@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNet.Identity
+@model FindADoctor.Models.Appointment
+
+@{
+    ViewBag.Title = "Appointment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress progress-striped active">
+            <div class="progress-bar" style="width: 95%">Check Appointment Summary & Confirm</div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("CreateAppointment", "Appointments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="col-md-offset-1 col-md-10">
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Date)</th>
+                    <th>Medical Center</th>
+                    <th>Doctor's Full Name</th>
+                    <th>@Html.DisplayNameFor(model => model.AppointmentSchedule.TimePeriod)</th>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Date)</td>
+                    <td>@Html.DisplayFor(model => model.MedicalCenter.Name)</td>
+                    <td>@Html.DisplayFor(model => model.Doctor.FirstName) @Html.DisplayFor(model => model.Doctor.LastName)</td>
+                    <td>@Html.DisplayFor(model => model.AppointmentSchedule.TimePeriod)</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                @Html.HiddenFor(x => x.MedicalCenterId, new { @MedicalCenterId = Model.MedicalCenterId })
+                @Html.HiddenFor(x => x.DoctorId, new { @DoctorId = Model.DoctorId })
+                @Html.HiddenFor(x => x.AppointmentScheduleId, new { @AppointmentScheduleId = Model.AppointmentScheduleId })
+                @*@if (Request.IsAuthenticated)
+                {
+                    @Html.HiddenFor(x => x.PatientUserName, new { @PatientUserName = User.Identity.GetUserName() })
+                }*@                
+                @Html.HiddenFor(x => x.Date, new { @Date = DateTime.Today })
+                @Html.ActionLink("<< Start Again", "StepOne", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Confirm & Create Appointment >>" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+   
+}
+
+    

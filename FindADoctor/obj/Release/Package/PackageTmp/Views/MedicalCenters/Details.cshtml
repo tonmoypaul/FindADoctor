@@ -6,90 +6,152 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="col-md-12">
     <h4>MedicalCenter</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Suburb)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Suburb)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Suburb)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Suburb)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PostCode)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PostCode)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PostCode)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PostCode)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Website)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitute)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Latitute)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitute)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Latitute)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DoctorAssignments)
-        </dt>
-
-        <dd>
-            <table class="table">
+            <dd>
+                @Html.DisplayFor(model => model.Longitude)
+            </dd>
+        </dl>
+            
+        @if (User.IsInRole("Admin"))
+        {
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <th>Doctors</th>
+                    <th colspan="4">Current Available Doctor(s)</th>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Degree</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.DoctorAssignments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName) 
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Specialty.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Doctor.Degree.Abbreviation)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Unlink", "UnlinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.DoctorId })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th colspan="4">Other Doctor(s) Ready To Hire</th>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Specialty</th>
+                    <th>Degree</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in ViewBag.OtherDoctors)
+                {
+                    <tr>
+                        <td>
+                            @item.FirstName @item.LastName
+                        </td>
+                        <td>
+                            @item.Specialty.Type
+                        </td>
+                        <td>
+                            @item.Degree.Abbreviation
+                        </td>
+                        <td>
+                            @Html.ActionLink("Link", "LinkDoctor", new { @medicalId = Html.DisplayFor(model => model.Id), @doctorId = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        @if (User.IsInRole("Patient"))
+        {
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th colspan="3">Current Available Doctor(s)</th>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
                     <th>Specialty</th>
                     <th>Degree</th>
                 </tr>
@@ -97,7 +159,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                            @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.LastName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Doctor.Specialty.Type)
@@ -108,11 +170,37 @@
                     </tr>
                 }
             </table>
-        </dd>
-
-    </dl>
+        }
+    </div>
+    <div class="col-md-6">
+        <div id="map"></div>
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-sm" })
+        @Html.Raw(" ")
+    }
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-sm" })
 </p>
+
+
+@section Scripts {
+    <script>
+        function initMap() {
+            var medical_center = { lat: @Html.DisplayFor(model => model.Latitute) , lng: @Html.DisplayFor(model => model.Longitude) };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: medical_center
+            });
+            var marker = new google.maps.Marker({
+                position: medical_center,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZTMXb1sxVBNFFXmDuYclVgjdeXeygI00&callback=initMap">
+    </script>
+}
